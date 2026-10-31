@@ -1,34 +1,177 @@
-# India Market Scanner
+<p align="center">
+  <img src="assets/banner.svg" alt="India Market Scanner: live-data market scans, budget plans and IPO verdicts for NSE and BSE" width="100%">
+</p>
 
-An open-source [Claude skill](https://docs.claude.com) that scans the Indian stock market (NSE/BSE) and produces a one-page research report, a budget-based plan, or an IPO verdict:
+<p align="center">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ECC71">
+  <img alt="Claude skill" src="https://img.shields.io/badge/Claude-skill-FF9933">
+  <img alt="Markets: NSE and BSE" src="https://img.shields.io/badge/markets-NSE%20%7C%20BSE-4DA3FF">
+  <img alt="Not investment advice" src="https://img.shields.io/badge/not-investment%20advice-F05D5E">
+</p>
 
-- **Market snapshot:** Nifty, Sensex, Bank Nifty, India VIX, FII/DII flows, sector moves, global cues
-- **Buy-side candidates:** stocks scored out of 100 on trend, fundamentals, valuation, ownership and catalysts, with entry zone, stop-loss, target and what would invalidate the setup
-- **Budget plan:** tell it how much you want to invest ("I want to invest ₹2,000 today") and it builds an illustrative allocation in whole shares across 1 to 8 stocks depending on the amount, with a one-line reason per stock, unspent cash, estimated charges and the worst-case loss if every stop-loss hits
-- **Sell / avoid candidates:** red-flag checks (broken trends, falling earnings, promoter pledge, governance issues); labels your holdings as hold / trim / exit if you share them
-- **IPO desk:** scores every mainboard IPO on two separate tracks, listing gain (subscription, valuation vs peers, anchors, GMP trend, market mood) and long term (business, financials, valuation, governance), then sorts each into Listing-gain play, Long-term hold, Both, Neutral or Avoid, with a listing outlook, an exit plan and the apply-by deadline
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#budget-plan">Budget plan</a> ·
+  <a href="#ipo-desk">IPO desk</a> ·
+  <a href="#how-the-scores-are-built">Scoring</a> ·
+  <a href="#sell-check">Sell check</a> ·
+  <a href="#no-made-up-numbers">Trust model</a> ·
+  <a href="#install">Install</a> ·
+  <a href="#disclaimer">Disclaimer</a>
+</p>
 
-## Disclaimer
+> [!WARNING]
+> **Educational research tool, not investment advice.** It is not a SEBI-registered investment adviser or research analyst. Everything it produces is a screen-based candidate or an illustrative allocation, never an instruction to buy or sell. Read the full [disclaimer](#disclaimer).
 
-**This is an educational research tool, not investment advice.** It is not a SEBI-registered investment adviser or research analyst. Output is screen-based, may be wrong or stale, and carries no guarantee of returns. Budget plans are illustrative allocations from a screen, not a recommendation to buy. Markets involve risk of loss. Verify all data yourself and consider a SEBI-registered adviser before investing. The authors accept no liability for decisions made using this tool.
+An open-source [Claude skill](https://docs.claude.com) for the Indian stock market. Ask in plain English and it scans NSE/BSE with live data, turns a budget like ₹2,000 into a whole-share plan, checks your holdings for red flags, and sorts every IPO into **listing gain** or **long term**.
 
-## How it works
+## Features
 
-The skill picks a mode from your request (Scan, Budget plan, Sell check, or IPO desk) and tells Claude to:
+<p align="center">
+  <img src="assets/modes.svg" alt="Four modes: market scan, budget plan, sell check and IPO desk" width="100%">
+</p>
 
-1. Fetch every price, ratio, flow, charge and IPO detail live from the web (exchange pages, filings, Screener.in, Moneycontrol, Chittorgarh and similar) and **never fill in numbers from memory**
-2. Cross-check key figures across two sources and show an "as of" time
-3. Drop anything it cannot verify, and say "no clean setups today" instead of forcing picks
+| You say | Mode | You get |
+|---|---|---|
+| "Scan the market" | 📈 **Scan** | Market snapshot, top buy candidates, an avoid list and IPO tables |
+| "I want to invest ₹2,000 today" | 💰 **Budget plan** | Whole-share allocation, unspent cash, estimated charges, worst-case loss |
+| "What should I sell?" + your holdings | 🔻 **Sell check** | Hold / trim / exit label for each holding, with the counter-argument |
+| "Which IPO is good for listing gains?" | 🚀 **IPO desk** | Two scores per IPO, a verdict, an exit plan and the apply-by deadline |
 
-Budget plans follow extra rules:
+You never pick a mode. The skill reads your request and routes it:
 
-- Whole shares only, because NSE/BSE direct equity has no fractional shares
-- Charges are estimated and shown as a % of the budget; small amounts may be better served by an ETF or index-fund SIP
-- Fewer positions for small budgets, a 40% cap per stock once there are 3 or more, and at most 2 names per sector
-- Delivery only: no margin, F&O or intraday
-- It never forces a buy just to use up the budget
+```mermaid
+flowchart LR
+    A(["You ask Claude"]) --> B{"Which mode?"}
+    B -->|"scan the market"| C["Scan"]
+    B -->|"invest ₹2,000 today"| D["Budget plan"]
+    B -->|"what should I sell?"| E["Sell check"]
+    B -->|"which IPO?"| F["IPO desk"]
+    C --> G[("Live data<br/>two-source check")]
+    D --> G
+    E --> G
+    F --> G
+    G --> H["One-page report<br/>sources and disclaimer"]
+    style C stroke:#4DA3FF,stroke-width:2px
+    style D stroke:#2ECC71,stroke-width:2px
+    style E stroke:#F05D5E,stroke-width:2px
+    style F stroke:#A78BFA,stroke-width:2px
+```
 
-It does not place trades, log into broker accounts, or handle credentials.
+## Budget plan
+
+Give it any amount. It checks what is actually feasible at that size, picks from live candidates that score 70 or more, and rounds everything down to whole shares.
+
+<p align="center">
+  <img src="assets/budget-flow.svg" alt="Budget plan flow: amount, feasibility checks, candidates, allocation, plan, and how many stocks each budget size uses" width="100%">
+</p>
+
+```mermaid
+sequenceDiagram
+    participant You
+    participant Claude
+    participant Web as Live sources
+    You->>Claude: I want to invest ₹2,000 today
+    Claude->>Web: Index snapshot, candidate prices, ratios, charges
+    Web-->>Claude: Figures with an as-of time
+    Claude->>Claude: Score, keep 70+, allocate whole shares, re-check the maths
+    Claude-->>You: Plan with quantity, unspent cash, charges, worst case, sources
+```
+
+**What the answer looks like.** *Illustrative format only: the companies and numbers below are fictional.*
+
+**Budget ₹2,000 · delivery · 3 to 12 months · moderate risk · prices as of the time shown in the real report**
+
+| Stock | CMP | Qty | Amount | % of budget | Why | Stop-loss | Horizon |
+|---|---|---|---|---|---|---|---|
+| Alpha Engineering | ₹640 | 2 | ₹1,280 | 64% | Order book growing, ROCE above 15%, above a rising 200-DMA | ₹590 | 3 to 12 months |
+| Beta Foods | ₹350 | 2 | ₹700 | 35% | Low debt, steady margins, PE below peers | ₹322 | 3 to 12 months |
+
+**Invested** ₹1,980 · **Unspent** ₹20 · **Estimated round-trip charges** looked up for your broker and shown in ₹ and % · **Worst case if both stops hit** ₹156 (7.8% of the budget)
+
+*Why this mix:* two different sectors and two different reasons to own them. *What would change the plan:* a close below either stop-loss, or the market turning risk-off.
+
+**What keeps small budgets honest**
+
+- 🧮 **Whole shares only.** NSE/BSE direct equity has no fractional shares, so quantity is the allocation divided by price, rounded down. A share that costs more than its slice is skipped, and the leftover cash goes to the next-best affordable pick.
+- 💸 **Charges are counted.** Brokerage, STT, exchange and DP charges bite harder on small amounts. They are looked up for your broker, never quoted from memory, and shown in ₹ and as a % of the budget. Above about 2%, the skill says so and offers a cheaper route (one position, a Nifty 50 ETF or an index-fund SIP).
+- 🎯 **Concentration limits.** Fewer positions for small budgets, a 40% cap per stock once there are 3 or more, and at most 2 names from one sector.
+- 🛑 **Worst case is shown.** The loss if every stop-loss hits, in ₹ and %, flagged when it passes about 10%.
+- 🚫 **No margin, F&O or intraday.** Delivery buys only.
+- ⏸️ **Never forces a buy.** If nothing scores 70, or nothing is affordable, it says so.
+
+## IPO desk
+
+Every mainboard IPO is scored on two separate tracks, so a quick listing pop and a business worth holding are never confused.
+
+<p align="center">
+  <img src="assets/ipo-matrix.svg" alt="Two by two matrix: listing-gain play, both, long-term hold, and neutral or avoid" width="100%">
+</p>
+
+**What the answer looks like.** *Illustrative format only: the IPOs and scores below are fictional.*
+
+| IPO | Verdict | Listing | Long-term | Why | Action |
+|---|---|---|---|---|---|
+| Nova Foods | 🟠 Listing-gain play | 82 | 48 | QIB and NII heavily oversubscribed, priced below peers, small issue; margins are thin | Apply only if the lot fits your budget, sell on listing day by your rule |
+| Orbit Cables | 🟣 Long-term hold | 51 | 77 | Strong financials, fair valuation, mostly fresh issue; subscription is weak | Skip the IPO, consider buying after listing |
+| Helio Pharma | 🟢 Both | 74 | 72 | Solid demand and a reasonable valuation with clean governance | Apply, then choose on listing day: book the pop or hold |
+| Zeta Logistics | 🔴 Avoid | 33 | 29 | OFS-heavy exit by a PE investor, valuation stretched against peers | Skip |
+
+**Good to know**
+
+- **Lot cost decides who can apply.** The minimum application is one lot at the upper price band. Many mainboard lots cost far more than a small budget, and the skill says so plainly instead of stretching.
+- **Allotment is a lottery.** At N times retail subscription the odds are roughly 1 in N per application, so a hot IPO means low odds.
+- **A long-term case does not require applying.** The stock can usually be bought after listing, sometimes cheaper.
+- **GMP is supporting evidence only.** It is unofficial and can be manipulated.
+- **SME IPOs default to Avoid** because of large lot sizes and thin liquidity.
+- **Every IPO gets an exit plan.** A sell-on-listing rule and stop for listing-gain plays, and what to monitor for long-term holds.
+
+## How the scores are built
+
+<p align="center">
+  <img src="assets/scoring.svg" alt="Stacked bars showing the weights behind the buy-side score, the IPO listing-gain track and the IPO long-term track" width="100%">
+</p>
+
+- **Buy-side stocks** come from liquid Nifty 500 names. ASM/GSM, T2T, SME and penny stocks are excluded, and stocks stretched more than 20% above their 50-DMA are penalised. Only scores of 70 or more qualify.
+- **Every pick** shows an entry zone, a technical stop-loss, a first target, a risk-to-reward ratio (dropped if below 1:2) and what would prove the setup wrong.
+- **No clean setup?** The skill says "no clean setups today" instead of padding the list.
+
+## Sell check
+
+Paste your holdings as a list, CSV or screenshot, or ask for an avoid list. Each holding gets a **hold / trim / exit** label, the evidence behind it and the strongest counter-argument.
+
+| Red flag | What it looks for |
+|---|---|
+| 📉 Broken trend | Close below the 200-DMA with lower highs |
+| 🧾 Falling earnings | Two or more quarters of shrinking profit or margins |
+| 💳 Debt stress | Rising debt or weak interest coverage |
+| 🔐 Promoter pledge | Pledge above 25%, or promoter selling |
+| 🚩 Governance | Auditor resignation, delayed results, qualified opinion, SEBI/ED/CBI action, rating downgrade |
+| 🏷️ Stretched valuation | Price far ahead of growth |
+| 🏦 Smart money leaving | Persistent FII or mutual-fund selling, negative bulk deals |
+
+It also reminds you to check the tax impact (STCG/LTCG) before selling, and never suggests leveraged shorts.
+
+## No made-up numbers
+
+Prices move and rules change, so the skill treats every figure as something to fetch, not recall.
+
+```mermaid
+flowchart TD
+    Q["Need a number<br/>price, PE, GMP, charges, limits"] --> S["Fetch it live<br/>search, fetch or browser"]
+    S --> V{"Two sources agree?"}
+    V -->|"yes"| U["Use it and show the as-of time"]
+    V -->|"no"| F["Flag the gap or drop the item"]
+    S -->|"cannot verify"| N["Write: not verified"]
+    style U stroke:#2ECC71,stroke-width:2px
+    style F stroke:#FF9933,stroke-width:2px
+    style N stroke:#F05D5E,stroke-width:2px
+```
+
+- Prefers primary sources: exchange filings, results, SEBI-filed RHP/DRHP, NSE/BSE bulk and block deal data.
+- Treats social-media tips and "target price" headlines as noise.
+- Recomputes every quantity, total and percentage before showing it.
+- Never places trades, logs into broker accounts or handles credentials.
 
 ## Install
 
@@ -43,26 +186,25 @@ cp -r india-market-scanner/skills/india-market-scanner ~/.claude/skills/
 
 Zip the `skills/india-market-scanner` folder (so `SKILL.md` sits inside it) and upload it from the Skills section of Claude's settings.
 
-## Usage
+Web access (search and fetch) must be enabled so the skill can get live data.
 
-Once installed, ask Claude things like:
+## Usage
 
 - "Scan the market"
 - "Stocks to buy today"
 - "I want to invest ₹2,000 today, what should I buy?"
 - "I have ₹25,000, split it across a few stocks"
-- "What should I sell?" (paste your holdings as a list, CSV or screenshot for hold/trim/exit labels)
+- "What should I sell?" (paste your holdings)
 - "Which IPO is good for listing gains?"
 - "Which IPO is good for the long term?"
 - "Is the [company] IPO worth subscribing to?"
 
-Web access (search/fetch) must be enabled for the skill to get live data.
-
 ## Limits to know about
 
-- **Small budgets:** a mainboard IPO lot often costs more than a few thousand rupees, so the skill will say when your amount cannot fund one.
-- **Data freshness:** free market sites can lag by about 15 minutes, and the skill shows an "as of" time on every price.
-- **GMP:** grey market premium is unofficial and can be manipulated, so it is only ever supporting evidence.
+- **Small budgets:** a mainboard IPO lot often costs more than a few thousand rupees, and charges take a visible share of a ₹2,000 plan.
+- **Data freshness:** free market sites can lag by about 15 minutes, so every price carries an "as of" time.
+- **Closed market:** outside 9:15 to 15:30 IST, plans use the last close and the next open can gap.
+- **Not a forecast:** scores rank candidates from today's data. They do not predict returns.
 
 ## Repo layout
 
@@ -70,6 +212,12 @@ Web access (search/fetch) must be enabled for the skill to get live data.
 india-market-scanner/
 ├── LICENSE
 ├── README.md
+├── assets/
+│   ├── banner.svg
+│   ├── modes.svg
+│   ├── budget-flow.svg
+│   ├── ipo-matrix.svg
+│   └── scoring.svg
 └── skills/
     └── india-market-scanner/
         └── SKILL.md
@@ -77,7 +225,11 @@ india-market-scanner/
 
 ## Contributing
 
-Issues and pull requests are welcome, for example better data sources, scoring tweaks, or new checks. Please keep the disclaimer and the "verified data only" rule intact.
+Issues and pull requests are welcome, for example better data sources, scoring tweaks or new checks. Please keep the disclaimer and the "verified data only" rule intact.
+
+## Disclaimer
+
+**This is an educational research tool, not investment advice.** It is not a SEBI-registered investment adviser or research analyst. Output is screen-based, may be wrong or stale, and carries no guarantee of returns. Budget plans are illustrative allocations from a screen, not a recommendation to buy. Markets involve risk of loss. Verify all data yourself and consider a SEBI-registered adviser before investing. The authors accept no liability for decisions made using this tool.
 
 ## License
 

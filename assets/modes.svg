@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="t d">
+  <title id="t">Four modes</title>
+  <desc id="d">Four cards: Market scan, Budget plan, Sell check and IPO desk, each with what it does and an example prompt.</desc>
+  <defs>
+    <style>
+      .t { font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .m { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+      .h { font-size: 26px; font-weight: 700; fill: #E6EDF7; }
+      .s { font-size: 15px; fill: #8FA3C0; }
+      .b { font-size: 16px; fill: #C9D6EA; }
+    </style>
+  </defs>
+  <rect width="1200" height="540" rx="20" fill="#0B1220"/>
+
+  <!-- 1 Scan -->
+  <g transform="translate(20,20)">
+    <rect width="570" height="240" rx="16" fill="#111B2E" stroke="#22314D"/>
+    <rect x="0" y="24" width="6" height="192" rx="3" fill="#4DA3FF"/>
+    <circle cx="60" cy="60" r="28" fill="#4DA3FF" fill-opacity="0.15" stroke="#4DA3FF"/>
+    <circle cx="56" cy="56" r="11" fill="none" stroke="#4DA3FF" stroke-width="3"/>
+    <line x1="64" y1="64" x2="74" y2="74" stroke="#4DA3FF" stroke-width="3" stroke-linecap="round"/>
+    <text x="104" y="56" class="t h">Market scan</text>
+    <text x="104" y="82" class="t s">Snapshot, top buy candidates and what to avoid</text>
+    <circle cx="44" cy="125" r="3" fill="#4DA3FF"/><text x="58" y="130" class="t b">Nifty, Sensex, VIX, FII/DII flows</text>
+    <circle cx="44" cy="153" r="3" fill="#4DA3FF"/><text x="58" y="158" class="t b">Buy candidates scored out of 100</text>
+    <circle cx="44" cy="181" r="3" fill="#4DA3FF"/><text x="58" y="186" class="t b">Avoid / exit-if-held red flags</text>
+    <rect x="40" y="200" width="190" height="28" rx="14" fill="#4DA3FF" fill-opacity="0.12" stroke="#4DA3FF"/>
+    <text x="54" y="219" class="m" font-size="15" fill="#4DA3FF">“Scan the market”</text>
+  </g>
+
+  <!-- 2 Budget plan -->
+  <g transform="translate(610,20)">
+    <rect width="570" height="240" rx="16" fill="#111B2E" stroke="#22314D"/>
+    <rect x="0" y="24" width="6" height="192" rx="3" fill="#2ECC71"/>
+    <circle cx="60" cy="60" r="28" fill="#2ECC71" fill-opacity="0.15" stroke="#2ECC71"/>
+    <text x="60" y="71" class="t" font-size="30" font-weight="700" fill="#2ECC71" text-anchor="middle">₹</text>
+    <text x="104" y="56" class="t h">Budget plan</text>
+    <text x="104" y="82" class="t s">Give it an amount, get a whole-share plan</text>
+    <circle cx="44" cy="125" r="3" fill="#2ECC71"/><text x="58" y="130" class="t b">1 to 8 stocks, scaled to your budget</text>
+    <circle cx="44" cy="153" r="3" fill="#2ECC71"/><text x="58" y="158" class="t b">Quantity, unspent cash, estimated charges</text>
+    <circle cx="44" cy="181" r="3" fill="#2ECC71"/><text x="58" y="186" class="t b">Worst-case loss if every stop-loss hits</text>
+    <rect x="40" y="200" width="320" height="28" rx="14" fill="#2ECC71" fill-opacity="0.12" stroke="#2ECC71"/>
+    <text x="54" y="219" class="m" font-size="15" fill="#2ECC71">“I want to invest ₹2,000 today”</text>
+  </g>
+
+  <!-- 3 Sell check -->
+  <g transform="translate(20,280)">
+    <rect width="570" height="240" rx="16" fill="#111B2E" stroke="#22314D"/>
+    <rect x="0" y="24" width="6" height="192" rx="3" fill="#F05D5E"/>
+    <circle cx="60" cy="60" r="28" fill="#F05D5E" fill-opacity="0.15" stroke="#F05D5E"/>
+    <path d="M60 46 V72 M48 62 L60 74 L72 62" fill="none" stroke="#F05D5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="104" y="56" class="t h">Sell check</text>
+    <text x="104" y="82" class="t s">Paste your holdings, get hold / trim / exit labels</text>
+    <circle cx="44" cy="125" r="3" fill="#F05D5E"/><text x="58" y="130" class="t b">Trend, earnings and debt red flags</text>
+    <circle cx="44" cy="153" r="3" fill="#F05D5E"/><text x="58" y="158" class="t b">Promoter pledge and governance alerts</text>
+    <circle cx="44" cy="181" r="3" fill="#F05D5E"/><text x="58" y="186" class="t b">The strongest counter-argument, shown too</text>
+    <rect x="40" y="200" width="230" height="28" rx="14" fill="#F05D5E" fill-opacity="0.12" stroke="#F05D5E"/>
+    <text x="54" y="219" class="m" font-size="15" fill="#F05D5E">“What should I sell?”</text>
+  </g>
+
+  <!-- 4 IPO desk -->
+  <g transform="translate(610,280)">
+    <rect width="570" height="240" rx="16" fill="#111B2E" stroke="#22314D"/>
+    <rect x="0" y="24" width="6" height="192" rx="3" fill="#A78BFA"/>
+    <circle cx="60" cy="60" r="28" fill="#A78BFA" fill-opacity="0.15" stroke="#A78BFA"/>
+    <path d="M46 60 H56 L72 46 M56 60 L72 74" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="72" cy="46" r="4" fill="#A78BFA"/><circle cx="72" cy="74" r="4" fill="#A78BFA"/>
+    <text x="104" y="56" class="t h">IPO desk</text>
+    <text x="104" y="82" class="t s">Two scores per IPO: listing gain vs long term</text>
+    <circle cx="44" cy="125" r="3" fill="#A78BFA"/><text x="58" y="130" class="t b">Subscription, anchors, GMP trend, market mood</text>
+    <circle cx="44" cy="153" r="3" fill="#A78BFA"/><text x="58" y="158" class="t b">Business, financials, valuation, governance</text>
+    <circle cx="44" cy="181" r="3" fill="#A78BFA"/><text x="58" y="186" class="t b">Exit plan and apply-by deadline</text>
+    <rect x="40" y="200" width="400" height="28" rx="14" fill="#A78BFA" fill-opacity="0.12" stroke="#A78BFA"/>
+    <text x="54" y="219" class="m" font-size="15" fill="#A78BFA">“Which IPO is good for listing gains?”</text>
+  </g>
+</svg>
