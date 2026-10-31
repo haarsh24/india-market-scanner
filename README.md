@@ -38,7 +38,7 @@
 |---|---|---|
 | "Scan the market" | 📈 **Scan** | Market snapshot, top buy candidates, an avoid list and IPO tables |
 | "I want to invest ₹2,000 today" | 💰 **Budget plan** | Whole-share allocation, unspent cash, estimated charges, worst-case loss |
-| "What should I sell?" + your holdings | 🔻 **Sell check** | Hold / trim / exit label for each holding, with the counter-argument |
+| "What should I sell?" + your holdings | 🔻 **Sell check** | Keep / reduce / exit label for each holding, with a one-line reason |
 | "Which IPO is good for listing gains?" | 🚀 **IPO desk** | Two scores per IPO, a verdict, an exit plan and the apply-by deadline |
 
 You never pick a mode. The skill reads your request and routes it:
@@ -81,18 +81,16 @@ sequenceDiagram
     Claude-->>You: Plan with quantity, unspent cash, charges, worst case, sources
 ```
 
-**What the answer looks like.** *Illustrative format only: the companies and numbers below are fictional.*
+**What the answer looks like.** *Beginner-friendly and short on purpose. Illustrative format only: the company and numbers below are fictional.*
 
-**Budget ₹2,000 · delivery · 3 to 12 months · moderate risk · prices as of the time shown in the real report**
+> **Idea:** 3 shares of Alpha Engineering at about ₹640.
+> **Why:** Orders are growing and the price is trending up.
+> **Exit if it falls to ₹590.** Worst loss: about ₹170 (charges included).
+> **Leftover:** ₹80. **Cost to buy and sell:** about ₹20.
+> **Market mood:** mixed, so go slow. Prices are from Friday's close. You can lose money.
+> Want the full numbers?
 
-| Stock | CMP | Qty | Amount | % of budget | Why | Stop-loss | Horizon |
-|---|---|---|---|---|---|---|---|
-| Alpha Engineering | ₹640 | 2 | ₹1,280 | 64% | Order book growing, ROCE above 15%, above a rising 200-DMA | ₹590 | 3 to 12 months |
-| Beta Foods | ₹350 | 2 | ₹700 | 35% | Low debt, steady margins, PE below peers | ₹322 | 3 to 12 months |
-
-**Invested** ₹1,980 · **Unspent** ₹20 · **Estimated round-trip charges** looked up for your broker and shown in ₹ and % · **Worst case if both stops hit** ₹156 (7.8% of the budget)
-
-*Why this mix:* two different sectors and two different reasons to own them. *What would change the plan:* a close below either stop-loss, or the market turning risk-off.
+Say yes and you get the scores, ratios and extra sources. If nothing looks good, the answer is "Nothing looks good for ₹2,000 today. Wait, or use a Nifty 50 index fund."
 
 **What keeps small budgets honest**
 
@@ -111,14 +109,17 @@ Every mainboard IPO is scored on two separate tracks, so a quick listing pop and
   <img src="assets/ipo-matrix.svg" alt="Two by two matrix: listing-gain play, both, long-term hold, and neutral or avoid" width="100%">
 </p>
 
-**What the answer looks like.** *Illustrative format only: the IPOs and scores below are fictional.*
+**What the answer looks like.** *Short and plain. Illustrative format only: the IPOs below are fictional.*
 
-| IPO | Verdict | Listing | Long-term | Why | Action |
-|---|---|---|---|---|---|
-| Nova Foods | 🟠 Listing-gain play | 82 | 48 | QIB and NII heavily oversubscribed, priced below peers, small issue; margins are thin | Apply only if the lot fits your budget, sell on listing day by your rule |
-| Orbit Cables | 🟣 Long-term hold | 51 | 77 | Strong financials, fair valuation, mostly fresh issue; subscription is weak | Skip the IPO, consider buying after listing |
-| Helio Pharma | 🟢 Both | 74 | 72 | Solid demand and a reasonable valuation with clean governance | Apply, then choose on listing day: book the pop or hold |
-| Zeta Logistics | 🔴 Avoid | 33 | 29 | OFS-heavy exit by a PE investor, valuation stretched against peers | Skip |
+> **Nova Foods: Listing-gain play.**
+> Why: Big investors are bidding hard and the price is below similar companies. Margins are thin, so do not hold long.
+> Money needed: ₹14,800 for 1 lot. Last day to apply: Wednesday.
+> Chance of allotment: low, about 1 in 40.
+> Risk: the first-day profit can vanish if the market turns weak.
+>
+> **Orbit Cables: Long-term hold.** Better to buy after listing than to apply. Strong business, but few people are bidding, so the price may dip after listing.
+>
+> **Zeta Logistics: Skip.** A big investor is selling its shares and the price looks too high.
 
 **Good to know**
 
@@ -137,11 +138,11 @@ Every mainboard IPO is scored on two separate tracks, so a quick listing pop and
 
 - **Buy-side stocks** come from liquid Nifty 500 names. ASM/GSM, T2T, SME and penny stocks are excluded, and stocks stretched more than 20% above their 50-DMA are penalised. Only scores of 70 or more qualify.
 - **Every pick** shows an entry zone, a technical stop-loss, a first target, a risk-to-reward ratio (dropped if below 1:2) and what would prove the setup wrong.
-- **No clean setup?** The skill says "no clean setups today" instead of padding the list.
+- **No clean setup?** The skill says "Nothing looks good today" instead of padding the list.
 
 ## Sell check
 
-Paste your holdings as a list, CSV or screenshot, or ask for an avoid list. Each holding gets a **hold / trim / exit** label, the evidence behind it and the strongest counter-argument.
+Paste your holdings as a list, CSV or screenshot, or ask for an avoid list. Each holding gets a **keep / reduce / exit** label and a one-line reason. Ask for more detail to see the evidence and the strongest counter-argument.
 
 | Red flag | What it looks for |
 |---|---|

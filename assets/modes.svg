@@ -50,7 +50,7 @@
     <circle cx="60" cy="60" r="28" fill="#F05D5E" fill-opacity="0.15" stroke="#F05D5E"/>
     <path d="M60 46 V72 M48 62 L60 74 L72 62" fill="none" stroke="#F05D5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="104" y="56" class="t h">Sell check</text>
-    <text x="104" y="82" class="t s">Paste your holdings, get hold / trim / exit labels</text>
+    <text x="104" y="82" class="t s">Paste your holdings, get keep / reduce / exit labels</text>
     <circle cx="44" cy="125" r="3" fill="#F05D5E"/><text x="58" y="130" class="t b">Trend, earnings and debt red flags</text>
     <circle cx="44" cy="153" r="3" fill="#F05D5E"/><text x="58" y="158" class="t b">Promoter pledge and governance alerts</text>
     <circle cx="44" cy="181" r="3" fill="#F05D5E"/><text x="58" y="186" class="t b">The strongest counter-argument, shown too</text>

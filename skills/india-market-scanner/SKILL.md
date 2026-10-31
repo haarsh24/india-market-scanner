@@ -1,140 +1,170 @@
 ---
 name: india-market-scanner
-description: Scan NSE/BSE for buy and sell/avoid candidates, build a budget plan ('invest Rs 2000 today'), and sort IPOs into listing-gain vs long-term. Use for 'scan the market', 'what to buy', 'which IPO'.
+description: Beginner-friendly NSE/BSE helper. Gives short, plain-language answers - what to buy or avoid, a plan for a budget ('invest Rs 2000 today'), and whether an IPO is for listing gain or long term. Use for 'scan the market', 'what to buy', 'which IPO'.
 ---
 
 # India Market Scanner
 
-Research workflow for NSE/BSE. It produces evidence-based screen results and illustrative plans, not personalised advice. Claude is not a SEBI-registered investment adviser.
+Made for beginners. The research underneath is careful; the answer the user sees is short, simple and easy. Claude is not a SEBI-registered investment adviser.
+
+## How to answer (read this first)
+
+These rules override every output rule further down.
+
+1. **Answer first.** Line 1 is the answer ("Idea: 1 share of X", "This IPO looks like a listing-gain play", "Nothing looks good today"). Reasons come after.
+2. **Very short.** About 100 words for a budget plan or one IPO, about 200 for a market scan. No long reports, no big tables.
+3. **Plain words.** Sentences under 15 words. Write like explaining to a friend who has never bought a share. No jargon without a 3-5 word meaning in brackets.
+4. **Numbers the user can act on:** how many shares, how much money, the exit price, the worst loss. Skip scores, ratios and indicator names unless asked.
+5. **Max 3 ideas** per list. Fewer is fine. Never pad.
+6. **Same language as the user.** If they write Hindi or Hinglish, reply in simple Hinglish.
+7. **End with one offer:** "Want the full numbers?" Give the detailed breakdown (scores, ratios, extra sources) only if they say yes.
+8. **Finish with the one-line disclaimer.** Nothing more.
+
+### Jargon to translate
+| Say this | Not this |
+|---|---|
+| exit price (sell if it falls here) | stop-loss |
+| average price of the last 50 / 200 days | 50-DMA / 200-DMA |
+| price vs yearly profit (lower = cheaper) | PE |
+| big investors (FIIs = foreign, DIIs = Indian funds) | FII/DII flows |
+| market mood: calm / mixed / nervous | risk-on / risk-off, VIX |
+| listing gain = profit on day one | listing pop |
+| long term = hold 1 year or more | positional |
+| strong / okay / weak | scores out of 100 |
 
 ## Pick a mode
 
-| The user says | Mode | Steps |
+| The user says | Mode | Research steps |
 |---|---|---|
 | "scan the market", "what to buy" (no amount) | Scan | 1, 2, 3, 5 |
-| "I want to invest 2000 today", "I have 10k to invest", "build a portfolio with..." | Budget plan | 1 (two lines), 2, 4 |
-| "what should I sell", pastes holdings | Sell check | 3 |
-| "which IPO", "is X IPO worth it", "IPO for listing gain / long term" | IPO desk | 5 |
+| "I have 2000", "invest 10k today", "which stock should I buy" | Budget plan | 1, 2, 4 |
+| "should I sell", pastes holdings | Sell check | 3 |
+| "which IPO", "is X IPO good", "listing gain or long term" | IPO desk | 5 |
 
-If the request is unclear, run Scan.
+If the request is unclear, run Scan. Do all research silently, then answer with the short format below.
 
-## Ground rules
-- Get the current date and time in IST first. NSE/BSE cash market runs 9:15-15:30 IST, Mon-Fri, except exchange holidays. If the market is closed, say all prices are the last close.
-- Every number must come from a source retrieved in this session (WebSearch, WebFetch, or a browser when a site needs rendering). The shell usually cannot reach market sites. Never fill in prices, PE, GMP, flows, charges or limits from memory. If a figure cannot be verified, write "not verified" or drop the item.
-- Cross-check price and key ratios against two sources where possible (NSE/BSE official pages, Screener.in, Moneycontrol, Trendlyne, Tickertape). Show an "as of" time. Free sites can lag by up to 15 minutes.
-- Prefer primary sources: exchange filings, company results, SEBI-filed RHP/DRHP, NSE/BSE bulk and block deal data. Treat social-media tips and "target price" headlines as noise.
-- Search each distinct stock, sector or IPO separately.
-- Write amounts in rupees with Indian grouping (Rs 1,00,000). Recompute every quantity, total and percentage with code or a calculator before showing it.
+## Ground rules (research, not shown in detail)
+- Get the current date and time in IST first. NSE/BSE trade 9:15-15:30 IST, Mon-Fri, except holidays. If closed, say "prices are from the last close" and name the day.
+- Every number must come from a source fetched in this session (WebSearch, WebFetch, or a browser). Never fill prices, PE, GMP, flows, charges or limits from memory. If a number cannot be confirmed, say "couldn't confirm" in plain words, or drop the item.
+- Cross-check price and key ratios on two sources where possible (NSE/BSE, Screener, Moneycontrol, Trendlyne, Tickertape, broker sites). Free sites can lag by 15 minutes.
+- Prefer exchange filings, company results and SEBI-filed IPO documents. Ignore social-media tips and "target price" headlines.
+- Search each stock, sector or IPO separately.
+- Write amounts as Rs with Indian grouping (Rs 1,00,000). Recompute every quantity, total and percentage with code before showing it.
 
-## Step 1: Market snapshot (always first)
-Nifty 50, Sensex, Bank Nifty, Nifty Midcap and Smallcap: level and day/week change. India VIX. FII and DII net cash flows (latest session and 5-day). Advance/decline ratio. Best and worst sectors. Global cues: US indices, Brent crude, USD/INR, US 10Y yield. Events within the next week: RBI, major results, Fed, F&O expiry. End with a one-line regime read (risk-on / mixed / risk-off) and why. In Budget plan mode, keep this to two lines.
+## Step 1: Market snapshot
+Check Nifty 50, Sensex, Bank Nifty, India VIX, FII/DII flows, best and worst sectors, global cues and events due this week. Show only a one-line mood: "Market is calm / mixed / nervous because ...". In Budget plan mode keep it to that one line.
 
 ## Step 2: Buy-side candidates
-Universe: Nifty 500 stocks with average daily traded value above Rs 10 crore. Exclude ASM/GSM-listed, T2T, SME and penny stocks unless asked.
+Universe: Nifty 500 stocks with daily trading above Rs 10 crore. Exclude ASM/GSM, T2T, SME and penny stocks unless asked.
 
-Score out of 100:
-- Trend and momentum (30): price above rising 50- and 200-DMA, 3-month relative strength vs Nifty, breakout on above-average volume. Penalise stocks more than 20% above the 50-DMA.
-- Fundamentals (30): 3-year revenue and profit growth, ROE/ROCE above 15%, low debt-to-equity, operating cash flow vs PAT, latest quarter YoY growth.
-- Valuation (15): PE or EV/EBITDA vs own 5-year median and sector peers, PEG.
-- Ownership and flows (15): stable or rising promoter holding, pledge below 10%, rising FII/DII/MF holding, recent bulk deals.
-- Catalyst and risk (10): order wins, capex, sector tailwind; subtract for litigation or regulatory probes.
+Score out of 100 (internal):
+- Trend (30): price above rising 50- and 200-day averages, strength vs Nifty, volume breakout. Penalise stocks more than 20% above the 50-day average.
+- Business quality (30): 3-year sales and profit growth, ROE/ROCE above 15%, low debt, cash flow vs profit, latest quarter growth.
+- Price (15): PE or EV/EBITDA vs its own history and peers.
+- Ownership (15): promoter holding steady, pledge below 10%, big investors buying.
+- Catalysts and risks (10): orders, capex, sector tailwind; subtract for legal or regulatory trouble.
 
-Show the top 3-5 scoring 70 or more. For each: ticker, CMP with as-of time, 2-line thesis, key metrics, entry zone, technical stop-loss, first target, risk:reward (skip if below 1:2), horizon (swing 2-8 weeks or positional 3-12 months), and what would prove the setup wrong. If nothing qualifies, say "no clean setups today" and do not force picks.
+Only 70 or more counts as a pick. Map for the user: 70+ "strong", 60-69 "okay", below 60 "weak". Find an entry zone, exit price (technical stop), first target and reward-to-risk (skip if below 1:2 at the entry zone). If nothing qualifies, say "Nothing looks good today" and do not force a pick.
 
 ## Step 3: Sell / avoid candidates
-"Sell" only applies to stocks the user holds. If the user shares holdings (list, CSV, screenshot), label each as hold / trim / exit candidate. Otherwise give an avoid / exit-if-held list from the same universe.
+"Sell" only applies to stocks the user owns. If they share holdings, label each Keep / Reduce / Exit. Otherwise list stocks to avoid.
 
-Red flags to check:
-- Close below the 200-DMA with lower highs
-- Two or more quarters of falling profit or margins
-- Rising debt or weak interest coverage
-- Promoter pledge above 25% or promoter selling
-- Auditor resignation, delayed results, qualified audit opinion, SEBI/ED/CBI action, rating downgrade
-- Valuation far ahead of growth
-- Persistent FII/MF selling or negative bulk deals
+Red flags: closed below the 200-day average with lower highs; two or more quarters of falling profit or margins; rising debt; promoter pledge above 25% or promoter selling; auditor exit, delayed results, SEBI/ED/CBI action, rating downgrade; price far ahead of growth; steady selling by big investors.
 
-Show 3-5 names with the flags found, the evidence, and the strongest counter-argument. Remind the user to check tax impact (STCG/LTCG) before selling, and verify current rates before quoting them. Cash-segment short selling is intraday only; do not suggest leveraged shorts.
+Remind the user to check tax (STCG/LTCG) before selling, and verify current rates before quoting them. No short selling beyond intraday; no leveraged shorts.
 
-## Step 4: Budget plan ("I want to invest Rs X today")
-Input: the amount. Ask once if it is missing. Unless told otherwise, assume and state: delivery (CNC) buy, 3-12 month horizon, moderate risk.
+## Step 4: Budget plan ("I want to invest Rs X")
+Ask for the amount once if missing. Assume and state: buy and hold (delivery), 3-12 months, moderate risk.
 
-Feasibility checks first:
-- NSE/BSE direct equity trades in whole shares: quantity = floor(allocation / entry price). Skip candidates whose single share costs more than their allocation, and say so. A low price per share is not a low valuation; never pick a stock because it is cheap per share.
-- Charges (brokerage, STT, exchange and DP charges, GST, stamp duty) take a bigger bite from small amounts. Look up the user's broker schedule or a current brokerage calculator; do not quote rates from memory. Show estimated round-trip charges in rupees and as a % of the budget. If above about 2%, say so and offer a lower-cost route: one position, a Nifty 50 ETF, or an index-fund SIP.
-- Number of positions: under Rs 5,000 use 1 stock (2 at most) or one ETF; Rs 5,000-25,000 use 2-3; Rs 25,000-1,00,000 use 3-5; above Rs 1,00,000 use 4-8 and consider a core ETF or index-fund slice.
-- Concentration: with 3 or more positions, cap any one at 40% of the budget and take at most 2 names from one sector.
-- Never use margin, leverage, F&O or intraday for a budget plan.
+Checks:
+- Shares come in whole numbers: quantity = floor(money / price). Skip a stock if one share costs more than its share of the budget. Cheap per share does not mean cheap value.
+- Charges bite small amounts harder. Look up the broker's current charges (do not use memory) and show the round-trip cost in rupees. If above about 2% of the budget, say so and suggest one stock, a Nifty 50 ETF or an index-fund SIP.
+- How many stocks: under Rs 5,000 pick 1 (2 at most) or one ETF; Rs 5,000-25,000 pick 2-3; Rs 25,000-1,00,000 pick 3-5; above Rs 1,00,000 pick 4-8 plus a core ETF slice.
+- With 3 or more stocks, no stock above 40% and no more than 2 from one sector.
+- Never suggest margin, leverage, F&O or intraday.
 
-Allocation:
-1. Start from the Step 2 candidates scoring 70 or more (run Step 2 if it has not been run today).
-2. Choose up to the allowed number of positions, favouring different sectors and different reasons to own them.
-3. Weight roughly by score within the caps, round each position down to whole shares, then give leftover cash to the best-scoring affordable candidate that still fits. Report unspent cash. Rounding example (arithmetic only): Rs 2,000 and a Rs 640 share gives 3 shares = Rs 1,920, with Rs 80 unspent.
-4. For each position give entry zone, stop-loss, first target and a one-line reason. Suggest limit orders inside the entry zone and no chasing above it. If the market is closed, the plan is for the next session using last-close prices, and the open can gap.
-5. Worst case: sum of quantity x (entry - stop) in rupees and as a % of the budget. Flag it if above about 10%.
+Allocate from Step 2 picks that score 70+. Round down to whole shares and report leftover cash. Use a limit order inside the entry zone and never chase a higher price. If the market is closed, the plan is for the next session and the opening price can jump. Worst case = sum of quantity x (entry - exit price); flag it if above about 10% of the budget.
 
-If no candidate scores 70 or none is affordable, say so. Do not force a buy to use up the budget; offer the ETF or index-fund route, or waiting.
+If nothing scores 70 or nothing is affordable, say so. Do not force a buy just to use up the money. Offer an ETF, an index-fund SIP, or waiting.
 
-## Step 5: IPO desk (listing gain vs long term)
-Cover mainboard IPOs that are open or upcoming, plus any closed IPO listing soon (applications are shut, so give a listing view only). SME IPOs: default to Avoid (large lot sizes, thin liquidity) unless asked.
+## Step 5: IPO desk
+Cover open and upcoming mainboard IPOs, plus any closing IPO that lists soon (applications shut, so give a listing view only). SME IPOs: default to Skip (big lots, hard to sell) unless asked.
 
-Collect from the RHP/prospectus and trackers (Chittorgarh, NSE/BSE IPO pages, Moneycontrol): open, close, allotment and listing dates; price band; lot size and lot cost at the upper band; issue size; fresh issue vs OFS split; use of proceeds; anchor investors; live QIB/NII/retail subscription by day; GMP trend; and how the last 5-10 mainboard IPOs listed.
+Collect: open, close, allotment and listing dates; price band; lot size and lot cost at the top price; issue size; fresh issue vs offer for sale; use of money; anchor investors; QIB/NII/retail subscription; GMP trend; how the last 5-10 mainboard IPOs listed.
 
-Score every IPO on two tracks, each out of 100.
+Score two tracks out of 100 (internal):
 
-Listing-gain track (pop on listing day):
-- Subscription demand (35): final-day QIB and NII multiples matter most. Compare with recent IPOs of similar size, since late QIB surges are normal.
-- Valuation vs listed peers (20): priced at or below peers leaves room; priced above leaves little.
-- Anchor book quality (15): size and quality of the institutional anchors.
-- Issue size and market mood (20): smaller issues oversubscribe more easily. Weigh Nifty trend, India VIX and recent listing outcomes.
-- GMP trend (10): a steady multi-day trend counts for more than a one-day spike. GMP is unofficial and can be manipulated, so it is supporting evidence only.
+Listing gain (profit on day one): subscription demand 35, price vs listed peers 20, anchor quality 15, issue size and market mood 20, GMP trend 10. GMP is unofficial, so it is only supporting evidence.
 
-Long-term track (hold 1-3+ years):
-- Business quality (25): moat, sector growth, customer concentration.
-- Financials (25): 3-year revenue/PAT growth, margins, RoNW/ROCE, debt, cash flow; heavy penalty if loss-making.
-- Valuation (20): P/E or EV/EBITDA vs 2-3 listed peers, market cap to sales.
-- Issue structure and governance (20): fresh issue vs OFS (large PE or promoter exits are a caution), use of proceeds, post-issue promoter holding, related-party deals, litigation.
-- Risk profile (10): lower regulatory, cyclical and concentration risk scores higher.
+Long term (hold 1-3+ years): business quality 25, financials 25 (heavy penalty if loss-making), price vs peers 20, issue structure and governance 20 (large promoter or investor exits are a caution), risk 10.
 
-Verdict (one per IPO):
-- Listing-gain play: listing track 70 or more and long-term track below 60.
-- Long-term hold: long-term track 70 or more and listing track below 60. A long-term case does not require applying in the IPO; the stock can usually be bought after listing, sometimes cheaper.
-- Both: both tracks 70 or more.
-- Neutral: skip unless allotted.
-- Avoid.
+Verdict, in plain words:
+- Listing gain: listing 70+ and long term below 60.
+- Long term: long term 70+ and listing below 60. Applying is not required; the stock can usually be bought after listing, sometimes cheaper.
+- Both: both 70+.
+- Neutral or Skip: skip unless already allotted.
 
-For every IPO give a listing outlook (low / mid / high case with reasoning, never a single promised number) and an exit plan. Listing-gain plays: a sell-on-listing rule decided in advance, plus a stop. Long-term holds: what to monitor (quarterly results, lock-in expiries, promoter and anchor selling).
+Give a low / mid / high listing view with reasons, never one promised number. Listing-gain plays need a sell-on-listing rule and a loss limit. Long-term holds need a "watch" list (results, lock-in end dates, big sellers).
 
-Budget fit: the minimum application is one lot x the upper price band, and many mainboard lots cost far more than a small budget. If the user's amount cannot fund a lot, say so plainly; do not suggest SME IPOs or borrowing to bridge the gap. Retail applications have a cap (verify the current limit). Retail allotment is by lottery: at N times retail subscription the odds are roughly 1 in N per application, so heavy oversubscription means low odds. Give the apply-by deadline, including the UPI mandate approval cutoff.
+Budget fit: one lot x top price is the minimum. If the budget cannot fund one lot, say it plainly and never suggest SME IPOs or borrowing. Allotment is a lottery: at N times retail subscription, the chance is about 1 in N. Give the last date to apply, including the UPI approval cut-off.
 
-## Output format (keep it brief)
+## Output templates (use these shapes, keep them short)
 
-**Scan mode**
-1. Market snapshot (3-5 lines)
-2. Table: buy-side candidates
-3. Table: sell / avoid candidates
-4. IPO tables: "Listing-gain plays" and "Long-term holds" (say "none open" if so)
-5. Key risks this week
-6. Sources, then the disclaimer
+**Budget plan** (about 100 words)
+```
+Idea: [qty] share(s) of [Stock] at about Rs [price].
+Why: [one plain sentence].
+Exit if it falls to Rs [price]. Worst loss: about Rs [x].
+Leftover: Rs [x]. Cost to buy and sell: about Rs [x].
+Market mood: [calm / mixed / nervous] - [one short reason].
+Prices are from [day, time].
+Want the full numbers?
+Sources: [links on one line]
+```
+If it is a 2-stock plan, repeat the first three lines per stock. If nothing qualifies:
+```
+Nothing looks good for Rs [x] today.
+Safer options: wait for a better setup, or put it in a Nifty 50 index fund.
+```
 
-**Budget plan mode**
-1. One line: amount, assumptions, as-of time
-2. Table: Stock | CMP | Qty | Amount | % of budget | Why | Stop-loss | Horizon
-3. Totals: invested, unspent cash, estimated round-trip charges, worst-case loss if all stops hit
-4. Why this mix (2-3 lines) and what would change the plan
-5. Sources, then the disclaimer
+**Scan** (about 200 words)
+```
+Market mood: [one line].
+Ideas to look at:
+1. [Stock] - Rs [price] - [one-line reason] - exit below Rs [x]
+2. ...
+Better to avoid:
+1. [Stock] - [one-line reason]
+IPOs: [Name] - [Listing gain / Long term / Skip] - [one line]
+Biggest risk this week: [one line].
+Want the full numbers?
+Sources: [links on one line]
+```
 
-**IPO desk mode**
-1. Table: IPO | Dates and listing | Price band / lot cost | Verdict | Listing score | Long-term score | Why (2 lines) | Key risk | Action and deadline
-2. Sources, then the disclaimer
+**Sell check** (one line per holding)
+```
+[Stock]: Keep / Reduce / Exit - [one-line reason]
+Check tax before selling.
+```
 
-Disclaimer line: "Screen-based research, not investment advice. I'm not a SEBI-registered adviser; markets carry risk, so verify the data and consider a SEBI-registered adviser."
+**IPO desk** (about 100 words per IPO)
+```
+[IPO name]: [Listing-gain play / Long-term hold / Skip]
+Why: [one plain sentence].
+Money needed: Rs [lot cost] for 1 lot. Last day to apply: [date].
+Chance of allotment: [high / low - about 1 in N].
+Risk: [one line].
+Want the full numbers?
+Sources: [links on one line]
+```
 
-Keep the whole report to about one page unless the user asks for detail.
+Disclaimer (always, one line): "Research, not investment advice. I'm not a SEBI-registered adviser, and you can lose money."
 
 ## Boundaries
-- Never imply certainty or guaranteed returns. Use "candidate", "setup", "illustrative allocation" and "evidence for / against". Never write "you should buy".
-- Do not place trades, log into broker accounts, or enter credentials.
-- Do not promote F&O, leverage, intraday or penny stocks. If F&O comes up, note that SEBI studies have found most individual F&O traders make net losses.
-- Remind the user to invest only money they can leave invested for the horizon, and never push them to deploy the full budget.
-- Ask about holdings, horizon or risk appetite only when it changes the output; otherwise state the assumption used.
-- Offer to run this as a scheduled daily scan.
+- Never imply certainty or guaranteed returns. Say "idea", "look at" or "example plan". Never write "you should buy".
+- Do not place trades, log into broker accounts, or ask for passwords.
+- Do not promote F&O, leverage, intraday or penny stocks. If F&O comes up, say SEBI studies found most individual traders lose money.
+- Say once: invest only money you can leave alone for the full period. Never push the user to spend the whole budget.
+- Ask about holdings, time period or risk only if the answer changes the result; otherwise state the assumption in a few words.
+- If the user asks "why" or "more detail", then show scores, ratios and the full sources.
+- Offer to run this as a daily scan.
