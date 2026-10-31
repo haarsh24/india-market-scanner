@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indian Stock Market Scanner | Free Claude Skill for NSE &amp; BSE</title>
+<meta name="description" content="Free open-source Claude skill: scan NSE &amp; BSE stocks, plan any budget (even ₹2,000), check holdings for red flags, and sort IPOs by listing gain vs long term.">
+<link rel="canonical" href="https://haarsh24.github.io/india-market-scanner/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0B1220">
+<meta name="author" content="Harsh">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1220'/%3E%3Ctext x='32' y='47' font-size='40' text-anchor='middle' fill='%23FF9933' font-family='Arial'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="India Market Scanner">
+<meta property="og:title" content="Indian Stock Market Scanner | Free Claude Skill for NSE &amp; BSE">
+<meta property="og:description" content="Scan NSE &amp; BSE stocks, plan any budget (even ₹2,000), check holdings for red flags, and sort IPOs by listing gain vs long term.">
+<meta property="og:url" content="https://haarsh24.github.io/india-market-scanner/">
+<meta property="og:image" content="https://haarsh24.github.io/india-market-scanner/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Indian Stock Market Scanner, a free Claude skill for NSE and BSE">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Indian Stock Market Scanner | Free Claude Skill for NSE &amp; BSE">
+<meta name="twitter:description" content="Scan NSE &amp; BSE stocks, plan any budget (even ₹2,000), check holdings for red flags, and sort IPOs by listing gain vs long term.">
+<meta name="twitter:image" content="https://haarsh24.github.io/india-market-scanner/assets/social-preview.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "India Market Scanner",
+  "alternateName": ["Indian Stock Market Scanner", "India Market Scanner Claude Skill"],
+  "description": "A free, open-source Claude skill that works as an Indian stock market scanner for NSE and BSE: market scans, whole-share budget plans, sell checks and IPO verdicts split into listing gain and long term.",
+  "url": "https://haarsh24.github.io/india-market-scanner/",
+  "codeRepository": "https://github.com/haarsh24/india-market-scanner",
+  "programmingLanguage": "Markdown",
+  "runtimePlatform": "Claude Code, Claude app",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": { "@type": "Person", "name": "Harsh", "url": "https://github.com/haarsh24" },
+  "keywords": "Indian stock market scanner, Claude skill, NSE, BSE, Nifty, Sensex, IPO analysis, listing gain, budget plan, stock screener",
+  "inLanguage": "en-IN",
+  "dateModified": "2026-11-01"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is the India Market Scanner?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A free, open-source Claude skill: a Markdown instruction file that teaches Claude to act as an Indian stock market scanner for NSE and BSE, covering market scans, budget plans, sell checks and IPO verdicts." } },
+    { "@type": "Question", "name": "Is there a Claude skill for the Indian stock market?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, this one. Install it in Claude Code or the Claude app, then ask things like \"scan the market\" or \"I want to invest ₹2,000 today\"." } },
+    { "@type": "Question", "name": "How do I scan NSE and BSE stocks with Claude?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Install the skill, enable web access, and ask \"scan the market\". It fetches Nifty, Sensex, India VIX and FII/DII flows live, scores liquid Nifty 500 stocks out of 100, and returns buy candidates and an avoid list with sources." } },
+    { "@type": "Question", "name": "Can it suggest stocks for a small budget like ₹2,000?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It builds an illustrative whole-share plan across 1 to 8 stocks depending on the amount, shows unspent cash, estimated charges and the worst-case loss, and says when an ETF or index-fund SIP fits better. It never forces a buy." } },
+    { "@type": "Question", "name": "Which IPO is good for listing gains, and which is for the long term?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Each mainboard IPO gets two scores: listing gain (subscription, anchors, valuation vs peers, GMP trend, market mood) and long term (business, financials, valuation, governance). The verdict is Listing-gain play, Long-term hold, Both, Neutral or Avoid." } },
+    { "@type": "Question", "name": "Is it free, and is it investment advice?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It is free and MIT licensed. It is not investment advice, and it is not a SEBI-registered adviser or research analyst. Outputs are screen-based candidates for you to verify." } },
+    { "@type": "Question", "name": "Where does the data come from?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Live web sources fetched in each session, such as exchange pages, filings, Screener.in, Moneycontrol and Chittorgarh. Figures are cross-checked and shown with an as-of time, and anything it cannot verify is marked \"not verified\"." } }
+  ]
+}
+</script>
+
+<style>
+:root { --bg:#0B1220; --panel:#111B2E; --line:#22314D; --text:#E6EDF7; --mut:#8FA3C0; --acc:#FF9933; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; }
+.wrap { max-width:980px; margin:0 auto; padding:24px 20px 64px; }
+img { max-width:100%; height:auto; border-radius:16px; display:block; margin:20px auto; }
+h1 { font-size:clamp(30px,5vw,46px); line-height:1.15; margin:24px 0 12px; }
+h2 { font-size:28px; margin:56px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+h3 { font-size:19px; margin:26px 0 6px; }
+a { color:#4DA3FF; }
+.lead { font-size:20px; color:#C9D6EA; }
+.btn { display:inline-block; padding:10px 18px; margin:4px 8px 4px 0; border-radius:999px; background:var(--acc); color:#0B1220; font-weight:700; text-decoration:none; }
+.btn.alt { background:transparent; color:var(--text); border:1px solid var(--line); }
+.warn { background:#2a1a1c; border:1px solid #F05D5E; border-radius:12px; padding:12px 16px; margin:20px 0; }
+nav a { margin-right:16px; font-size:15px; }
+pre { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; overflow:auto; }
+code { font-family:SFMono-Regular,Consolas,'Liberation Mono',monospace; font-size:14.5px; }
+ul { padding-left:22px; }
+footer { color:var(--mut); font-size:14px; border-top:1px solid var(--line); margin-top:56px; padding-top:20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img src="assets/banner.svg" width="1200" height="320" alt="India Market Scanner: live-data market scans, budget plans and IPO verdicts for NSE and BSE">
+  <h1>Indian stock market scanner for Claude</h1>
+  <p class="lead"><strong>India Market Scanner</strong> is a free, open-source Claude skill that works as an Indian stock market scanner for NSE and BSE. Ask in plain English: it scans Nifty and Sensex stocks with live data, turns a budget like ₹2,000 into a whole-share plan, checks your holdings for red flags and sorts every IPO into listing gain or long term.</p>
+  <p>
+    <a class="btn" href="https://github.com/haarsh24/india-market-scanner">View on GitHub</a>
+    <a class="btn alt" href="#install">Install the skill</a>
+  </p>
+  <p class="warn"><strong>Educational research tool, not investment advice.</strong> It is not a SEBI-registered investment adviser or research analyst. Outputs are screen-based candidates and illustrative allocations, never an instruction to buy or sell.</p>
+  <nav aria-label="Page sections">
+    <a href="#features">Features</a><a href="#budget-plan">Budget plan</a><a href="#ipo-desk">IPO desk</a><a href="#scoring">Scoring</a><a href="#faq">FAQ</a><a href="#install">Install</a>
+  </nav>
+</header>
+
+<main>
+<section id="features">
+  <h2>What the Indian stock market scanner does</h2>
+  <img src="assets/modes.svg" width="1200" height="540" loading="lazy" alt="Four modes: market scan, budget plan, sell check and IPO desk">
+  <ul>
+    <li><strong>Market scan:</strong> Nifty, Sensex, Bank Nifty, India VIX, FII/DII flows and sector moves, plus buy candidates scored out of 100 with entry zone, stop-loss and target.</li>
+    <li><strong>Budget plan:</strong> tell it your amount and get a whole-share plan with unspent cash, estimated charges and the worst-case loss.</li>
+    <li><strong>Sell check:</strong> paste your holdings and get hold, trim or exit labels with the strongest counter-argument.</li>
+    <li><strong>IPO desk:</strong> two scores per IPO, listing gain and long term, with a verdict, an exit plan and the apply-by deadline.</li>
+  </ul>
+</section>
+
+<section id="budget-plan">
+  <h2>Budget plan: invest ₹2,000 or any amount</h2>
+  <img src="assets/budget-flow.svg" width="1200" height="450" loading="lazy" alt="Budget plan flow: amount, feasibility checks, candidates, allocation and plan">
+  <p>It checks what is feasible at your size (whole shares only, charges as a share of the budget, position limits), picks live candidates scoring 70 or more, rounds down to whole shares, and shows unspent cash, estimated charges and the worst-case loss. Under ₹5,000 it uses one or two stocks or an ETF; above ₹1,00,000 it uses four to eight stocks plus a core ETF. It never forces a buy and never uses margin, F&amp;O or intraday.</p>
+</section>
+
+<section id="ipo-desk">
+  <h2>IPO desk: listing gain vs long term</h2>
+  <img src="assets/ipo-matrix.svg" width="1000" height="660" loading="lazy" alt="Two by two matrix: listing-gain play, both, long-term hold, and neutral or avoid">
+  <p>Every mainboard IPO is scored twice: a listing-gain score (subscription demand, valuation vs peers, anchors, issue size and market mood, GMP trend) and a long-term score (business quality, financials, valuation, governance). The verdict is Listing-gain play, Long-term hold, Both, Neutral or Avoid, with a listing outlook and an exit plan. The skill says plainly when your amount cannot fund one lot.</p>
+</section>
+
+<section id="scoring">
+  <h2>How the scores are built</h2>
+  <img src="assets/scoring.svg" width="1200" height="580" loading="lazy" alt="Stacked bars showing the weights behind the stock score and the two IPO tracks">
+  <p>Stocks are scored out of 100 on trend and momentum (30), fundamentals (30), valuation (15), ownership and flows (15) and catalyst and risk (10). Only 70 or more qualifies. Every input is fetched live and cross-checked, never recalled from memory.</p>
+</section>
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <h3>What is the India Market Scanner?</h3>
+  <p>A free, open-source Claude skill: a Markdown instruction file that teaches Claude to act as an Indian stock market scanner for NSE and BSE, covering market scans, budget plans, sell checks and IPO verdicts.</p>
+  <h3>Is there a Claude skill for the Indian stock market?</h3>
+  <p>Yes, this one. Install it in Claude Code or the Claude app, then ask things like "scan the market" or "I want to invest ₹2,000 today".</p>
+  <h3>How do I scan NSE and BSE stocks with Claude?</h3>
+  <p>Install the skill, enable web access, and ask "scan the market". It fetches Nifty, Sensex, India VIX and FII/DII flows live, scores liquid Nifty 500 stocks out of 100, and returns buy candidates and an avoid list with sources.</p>
+  <h3>Can it suggest stocks for a small budget like ₹2,000?</h3>
+  <p>Yes. It builds an illustrative whole-share plan across 1 to 8 stocks depending on the amount, shows unspent cash, estimated charges and the worst-case loss, and says when an ETF or index-fund SIP fits better. It never forces a buy.</p>
+  <h3>Which IPO is good for listing gains, and which is for the long term?</h3>
+  <p>Each mainboard IPO gets two scores: listing gain (subscription, anchors, valuation vs peers, GMP trend, market mood) and long term (business, financials, valuation, governance). The verdict is Listing-gain play, Long-term hold, Both, Neutral or Avoid.</p>
+  <h3>Is it free, and is it investment advice?</h3>
+  <p>It is free and MIT licensed. It is not investment advice, and it is not a SEBI-registered adviser or research analyst. Outputs are screen-based candidates for you to verify.</p>
+  <h3>Where does the data come from?</h3>
+  <p>Live web sources fetched in each session, such as exchange pages, filings, Screener.in, Moneycontrol and Chittorgarh. Figures are cross-checked and shown with an as-of time, and anything it cannot verify is marked "not verified".</p>
+</section>
+
+<section id="install">
+  <h2>Install the skill</h2>
+  <p>For Claude Code:</p>
+<pre><code>git clone https://github.com/haarsh24/india-market-scanner.git
+cp -r india-market-scanner/skills/india-market-scanner ~/.claude/skills/</code></pre>
+  <p>For the Claude app, zip the <code>skills/india-market-scanner</code> folder and upload it from the Skills section of settings. Enable web access so the skill can fetch live data. Full instructions are in the <a href="https://github.com/haarsh24/india-market-scanner#install">README</a>.</p>
+</section>
+</main>
+
+<footer>
+  <p><strong>Disclaimer:</strong> educational research tool, not investment advice. Not a SEBI-registered investment adviser or research analyst. Output is screen-based, may be wrong or stale, and carries no guarantee of returns. Markets involve risk of loss. Verify all data yourself and consider a SEBI-registered adviser before investing.</p>
+  <p>MIT licensed · <a href="https://github.com/haarsh24/india-market-scanner">Source on GitHub</a></p>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="660" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+  <title id="t">Which IPO track fits</title>
+  <desc id="d">A two-by-two matrix. Listing-gain score on the vertical axis and long-term score on the horizontal axis. Top left: listing-gain play. Top right: both. Bottom left: neutral or avoid. Bottom right: long-term hold.</desc>
+  <defs>
+    <style>
+      .t { font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .q { font-size: 24px; font-weight: 700; }
+      .c { font-size: 14px; fill: #E6EDF7; }
+      .l { font-size: 15px; fill: #C9D6EA; }
+      .ax { font-size: 16px; font-weight: 700; fill: #8FA3C0; }
+      .tick { font-size: 13px; fill: #8FA3C0; }
+    </style>
+  </defs>
+  <rect width="1000" height="660" rx="20" fill="#0B1220"/>
+  <text x="60" y="44" class="t" font-size="26" font-weight="700" fill="#E6EDF7">Which IPO track fits?</text>
+  <text x="60" y="70" class="t" font-size="15" fill="#8FA3C0">Every IPO gets a listing-gain score and a long-term score, then lands in one box.</text>
+
+  <!-- top-left: listing-gain play -->
+  <rect x="144" y="104" width="392" height="232" rx="14" fill="#FF9933" fill-opacity="0.14" stroke="#FF9933"/>
+  <text x="168" y="148" class="t q" fill="#FF9933">Listing-gain play</text>
+  <text x="168" y="178" class="t c">Listing 70+ · Long-term below 60</text>
+  <text x="168" y="214" class="t l">Apply only if final-day demand is strong.</text>
+  <text x="168" y="238" class="t l">Pre-set your sell rule and stop-loss.</text>
+  <text x="168" y="262" class="t l">Sell on listing day, by the rule.</text>
+
+  <!-- top-right: both -->
+  <rect x="544" y="104" width="392" height="232" rx="14" fill="#2ECC71" fill-opacity="0.14" stroke="#2ECC71"/>
+  <text x="568" y="148" class="t q" fill="#2ECC71">Both</text>
+  <text x="568" y="178" class="t c">Both tracks 70+</text>
+  <text x="568" y="214" class="t l">Apply, then choose on listing day:</text>
+  <text x="568" y="238" class="t l">book the pop or hold for the long run.</text>
+
+  <!-- bottom-left: neutral / avoid -->
+  <rect x="144" y="344" width="392" height="232" rx="14" fill="#64748B" fill-opacity="0.18" stroke="#64748B"/>
+  <text x="168" y="388" class="t q" fill="#A9B8CE">Neutral / Avoid</text>
+  <text x="168" y="418" class="t c">Neither track qualifies</text>
+  <text x="168" y="454" class="t l">Skip unless you are allotted.</text>
+  <text x="168" y="478" class="t l">Avoid when valuation or governance flags</text>
+  <text x="168" y="502" class="t l">are loud, or when it is an SME IPO.</text>
+
+  <!-- bottom-right: long-term hold -->
+  <rect x="544" y="344" width="392" height="232" rx="14" fill="#A78BFA" fill-opacity="0.14" stroke="#A78BFA"/>
+  <text x="568" y="388" class="t q" fill="#A78BFA">Long-term hold</text>
+  <text x="568" y="418" class="t c">Long-term 70+ · Listing below 60</text>
+  <text x="568" y="454" class="t l">You do not have to apply in the IPO.</text>
+  <text x="568" y="478" class="t l">The stock can often be bought after</text>
+  <text x="568" y="502" class="t l">listing, sometimes cheaper.</text>
+
+  <!-- axes -->
+  <text x="540" y="606" class="t ax" text-anchor="middle">Long-term score  →</text>
+  <text x="144" y="598" class="t tick">low</text>
+  <text x="936" y="598" class="t tick" text-anchor="end">high</text>
+  <text transform="translate(98 340) rotate(-90)" class="t ax" text-anchor="middle">Listing-gain score  →</text>
+  <text x="128" y="566" class="t tick" text-anchor="end">low</text>
+  <text x="128" y="122" class="t tick" text-anchor="end">high</text>
+
+  <text x="500" y="642" class="t tick" text-anchor="middle">70+ qualifies a track · below 60 counts as weak · anything in between is Neutral</text>
+</svg>

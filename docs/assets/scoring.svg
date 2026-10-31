@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="t d">
+  <title id="t">How the scores are built</title>
+  <desc id="d">Three stacked bars, each out of 100 points: the buy-side stock score, the IPO listing-gain track and the IPO long-term track, with the weight of each factor.</desc>
+  <defs>
+    <style>
+      .t { font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .row { font-size: 20px; font-weight: 700; fill: #E6EDF7; }
+      .note { font-size: 14px; fill: #8FA3C0; }
+      .pt { font-size: 26px; font-weight: 800; fill: #FFFFFF; }
+      .lb { font-size: 12px; fill: #E6EDF7; }
+      .lbs { font-size: 11px; fill: #E6EDF7; }
+    </style>
+  </defs>
+  <rect width="1200" height="580" rx="20" fill="#0B1220"/>
+  <text x="100" y="46" class="t" font-size="26" font-weight="700" fill="#E6EDF7">How the scores are built (each out of 100)</text>
+
+  <!-- Row 1: buy-side -->
+  <text x="100" y="98" class="t row">Buy-side score · stocks</text>
+  <text x="1100" y="98" class="t note" text-anchor="end">liquid Nifty 500 names · 70+ qualifies</text>
+  <g fill="#4DA3FF" text-anchor="middle">
+    <rect x="101.5" y="112" width="297" height="90" fill-opacity="0.90"/>
+    <text x="250" y="152" class="t pt">30</text><text x="250" y="178" class="t lb">Trend &amp; momentum</text>
+    <rect x="401.5" y="112" width="297" height="90" fill-opacity="0.75"/>
+    <text x="550" y="152" class="t pt">30</text><text x="550" y="178" class="t lb">Fundamentals</text>
+    <rect x="701.5" y="112" width="147" height="90" fill-opacity="0.62"/>
+    <text x="775" y="152" class="t pt">15</text><text x="775" y="178" class="t lb">Valuation</text>
+    <rect x="851.5" y="112" width="147" height="90" fill-opacity="0.50"/>
+    <text x="925" y="152" class="t pt">15</text><text x="925" y="178" class="t lb">Ownership &amp; flows</text>
+    <rect x="1001.5" y="112" width="97" height="90" fill-opacity="0.40"/>
+    <text x="1050" y="152" class="t pt">10</text><text x="1050" y="178" class="t lbs">Catalyst &amp; risk</text>
+  </g>
+
+  <!-- Row 2: IPO listing-gain -->
+  <text x="100" y="253" class="t row">IPO · Listing-gain track</text>
+  <text x="1100" y="253" class="t note" text-anchor="end">the pop on listing day</text>
+  <g fill="#FF9933" text-anchor="middle">
+    <rect x="101.5" y="267" width="347" height="90" fill-opacity="0.90"/>
+    <text x="275" y="307" class="t pt">35</text><text x="275" y="333" class="t lb">Subscription demand</text>
+    <rect x="451.5" y="267" width="197" height="90" fill-opacity="0.75"/>
+    <text x="550" y="307" class="t pt">20</text><text x="550" y="333" class="t lb">Valuation vs peers</text>
+    <rect x="651.5" y="267" width="147" height="90" fill-opacity="0.62"/>
+    <text x="725" y="307" class="t pt">15</text><text x="725" y="333" class="t lb">Anchor book</text>
+    <rect x="801.5" y="267" width="197" height="90" fill-opacity="0.50"/>
+    <text x="900" y="307" class="t pt">20</text><text x="900" y="333" class="t lb">Issue size &amp; market mood</text>
+    <rect x="1001.5" y="267" width="97" height="90" fill-opacity="0.40"/>
+    <text x="1050" y="307" class="t pt">10</text><text x="1050" y="333" class="t lb">GMP trend</text>
+  </g>
+
+  <!-- Row 3: IPO long-term -->
+  <text x="100" y="408" class="t row">IPO · Long-term track</text>
+  <text x="1100" y="408" class="t note" text-anchor="end">hold 1 to 3+ years</text>
+  <g fill="#A78BFA" text-anchor="middle">
+    <rect x="101.5" y="422" width="247" height="90" fill-opacity="0.90"/>
+    <text x="225" y="462" class="t pt">25</text><text x="225" y="488" class="t lb">Business quality</text>
+    <rect x="351.5" y="422" width="247" height="90" fill-opacity="0.75"/>
+    <text x="475" y="462" class="t pt">25</text><text x="475" y="488" class="t lb">Financials</text>
+    <rect x="601.5" y="422" width="197" height="90" fill-opacity="0.62"/>
+    <text x="700" y="462" class="t pt">20</text><text x="700" y="488" class="t lb">Valuation</text>
+    <rect x="801.5" y="422" width="197" height="90" fill-opacity="0.50"/>
+    <text x="900" y="462" class="t pt">20</text><text x="900" y="488" class="t lb">Issue structure &amp; governance</text>
+    <rect x="1001.5" y="422" width="97" height="90" fill-opacity="0.40"/>
+    <text x="1050" y="462" class="t pt">10</text><text x="1050" y="488" class="t lbs">Risk profile</text>
+  </g>
+
+  <text x="100" y="548" class="t note">Weights live in SKILL.md and are guidelines, not predictions. Every input is fetched live, never from memory.</text>
+</svg>

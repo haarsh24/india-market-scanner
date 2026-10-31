@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this skill in your work, please cite it as below."
+title: "India Market Scanner: an Indian stock market scanner skill for Claude"
+abstract: "A free, open-source Claude skill that scans NSE and BSE stocks, builds whole-share budget plans, checks holdings for red flags and sorts IPOs into listing-gain and long-term picks. Educational research tool, not investment advice."
+type: software
+authors:
+  - given-names: "Harsh"
+    alias: "haarsh24"
+repository-code: "https://github.com/haarsh24/india-market-scanner"
+url: "https://haarsh24.github.io/india-market-scanner/"
+license: MIT
+version: "1.0.0"
+date-released: "2026-11-01"
+keywords:
+  - Indian stock market
+  - stock scanner
+  - stock screener
+  - NSE
+  - BSE
+  - Nifty
+  - Sensex
+  - IPO analysis
+  - Claude skill
+  - agent skills

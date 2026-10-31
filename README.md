@@ -2,6 +2,8 @@
   <img src="assets/banner.svg" alt="India Market Scanner: live-data market scans, budget plans and IPO verdicts for NSE and BSE" width="100%">
 </p>
 
+# India Market Scanner: Indian Stock Market Scanner Skill for Claude (NSE and BSE)
+
 <p align="center">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ECC71">
   <img alt="Claude skill" src="https://img.shields.io/badge/Claude-skill-FF9933">
@@ -16,6 +18,7 @@
   <a href="#how-the-scores-are-built">Scoring</a> ·
   <a href="#sell-check">Sell check</a> ·
   <a href="#no-made-up-numbers">Trust model</a> ·
+  <a href="#faq">FAQ</a> ·
   <a href="#install">Install</a> ·
   <a href="#disclaimer">Disclaimer</a>
 </p>
@@ -23,7 +26,7 @@
 > [!WARNING]
 > **Educational research tool, not investment advice.** It is not a SEBI-registered investment adviser or research analyst. Everything it produces is a screen-based candidate or an illustrative allocation, never an instruction to buy or sell. Read the full [disclaimer](#disclaimer).
 
-An open-source [Claude skill](https://docs.claude.com) for the Indian stock market. Ask in plain English and it scans NSE/BSE with live data, turns a budget like ₹2,000 into a whole-share plan, checks your holdings for red flags, and sorts every IPO into **listing gain** or **long term**.
+**India Market Scanner** is a free, open-source **Claude skill** (an [Agent Skill](https://docs.claude.com)) that works as an **Indian stock market scanner** for **NSE and BSE**. Ask in plain English and it scans Nifty and Sensex stocks with live data, turns a budget like ₹2,000 into a whole-share plan, checks your holdings for red flags, and sorts every IPO into **listing gain** or **long term**. It runs in Claude Code and the Claude app.
 
 ## Features
 
@@ -173,6 +176,36 @@ flowchart TD
 - Recomputes every quantity, total and percentage before showing it.
 - Never places trades, logs into broker accounts or handles credentials.
 
+## FAQ
+
+### What is the India Market Scanner?
+
+A free, open-source Claude skill: a Markdown instruction file that teaches Claude to act as an Indian stock market scanner for NSE and BSE, covering market scans, budget plans, sell checks and IPO verdicts.
+
+### Is there a Claude skill for the Indian stock market?
+
+Yes, this one. Install it in Claude Code or the Claude app, then ask things like "scan the market" or "I want to invest ₹2,000 today".
+
+### How do I scan NSE and BSE stocks with Claude?
+
+Install the skill, enable web access, and ask "scan the market". It fetches Nifty, Sensex, India VIX and FII/DII flows live, scores liquid Nifty 500 stocks out of 100, and returns buy candidates and an avoid list with sources.
+
+### Can it suggest stocks for a small budget like ₹2,000?
+
+Yes. It builds an illustrative whole-share plan across 1 to 8 stocks depending on the amount, shows unspent cash, estimated charges and the worst-case loss, and says when an ETF or index-fund SIP fits better. It never forces a buy.
+
+### Which IPO is good for listing gains, and which is for the long term?
+
+Each mainboard IPO gets two scores: listing gain (subscription, anchors, valuation vs peers, GMP trend, market mood) and long term (business, financials, valuation, governance). The verdict is Listing-gain play, Long-term hold, Both, Neutral or Avoid.
+
+### Is it free, and is it investment advice?
+
+It is free and MIT licensed. It is not investment advice, and it is not a SEBI-registered adviser or research analyst. Outputs are screen-based candidates for you to verify.
+
+### Where does the data come from?
+
+Live web sources fetched in each session, such as exchange pages, filings, Screener.in, Moneycontrol and Chittorgarh. Figures are cross-checked and shown with an as-of time, and anything it cannot verify is marked "not verified".
+
 ## Install
 
 **Claude Code**
@@ -212,12 +245,18 @@ Web access (search and fetch) must be enabled so the skill can get live data.
 india-market-scanner/
 ├── LICENSE
 ├── README.md
+├── CITATION.cff
 ├── assets/
 │   ├── banner.svg
 │   ├── modes.svg
 │   ├── budget-flow.svg
 │   ├── ipo-matrix.svg
-│   └── scoring.svg
+│   ├── scoring.svg
+│   └── social-preview.svg / .png
+├── docs/                   landing page for GitHub Pages
+│   ├── index.html
+│   ├── sitemap.xml
+│   └── assets/
 └── skills/
     └── india-market-scanner/
         └── SKILL.md

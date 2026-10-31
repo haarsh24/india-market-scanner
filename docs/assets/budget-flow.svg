@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="450" viewBox="0 0 1200 450" role="img" aria-labelledby="t d">
+  <title id="t">From amount to plan</title>
+  <desc id="d">Five steps: your amount, feasibility checks, candidates scoring 70 or more, allocation, and the final plan. Below, how many stocks the plan uses at four budget sizes.</desc>
+  <defs>
+    <style>
+      .t { font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .hd { font-size: 18px; font-weight: 700; }
+      .ln { font-size: 14px; fill: #C9D6EA; }
+      .mut { font-size: 14px; fill: #8FA3C0; }
+      .seg { font-size: 16px; font-weight: 700; fill: #E6EDF7; }
+      .sg2 { font-size: 14px; fill: #C9D6EA; }
+    </style>
+  </defs>
+  <rect width="1200" height="450" rx="20" fill="#0B1220"/>
+  <text x="20" y="38" class="t" font-size="24" font-weight="700" fill="#E6EDF7">From an amount to a plan</text>
+
+  <!-- 1 -->
+  <rect x="20" y="60" width="200" height="190" rx="14" fill="#111B2E" stroke="#2ECC71"/>
+  <text x="36" y="92" class="t hd" fill="#2ECC71">1 · Your amount</text>
+  <line x1="36" y1="104" x2="204" y2="104" stroke="#22314D"/>
+  <text x="36" y="152" class="t" font-size="38" font-weight="800" fill="#E6EDF7">₹2,000</text>
+  <text x="36" y="184" class="t ln">Any budget works</text>
+  <text x="36" y="208" class="t mut">Asked once if missing</text>
+  <path d="M226 155 H248" stroke="#8FA3C0" stroke-width="2"/><polygon points="246,148 258,155 246,162" fill="#8FA3C0"/>
+
+  <!-- 2 -->
+  <rect x="260" y="60" width="200" height="190" rx="14" fill="#111B2E" stroke="#FFD166"/>
+  <text x="276" y="92" class="t hd" fill="#FFD166">2 · Feasibility</text>
+  <line x1="276" y1="104" x2="444" y2="104" stroke="#22314D"/>
+  <text x="276" y="134" class="t ln">Whole shares only</text>
+  <text x="276" y="160" class="t ln">Charges as % of budget</text>
+  <text x="276" y="186" class="t ln">Max positions by size</text>
+  <text x="276" y="212" class="t ln">40% cap per stock</text>
+  <path d="M466 155 H488" stroke="#8FA3C0" stroke-width="2"/><polygon points="486,148 498,155 486,162" fill="#8FA3C0"/>
+
+  <!-- 3 -->
+  <rect x="500" y="60" width="200" height="190" rx="14" fill="#111B2E" stroke="#4DA3FF"/>
+  <text x="516" y="92" class="t hd" fill="#4DA3FF">3 · Candidates</text>
+  <line x1="516" y1="104" x2="684" y2="104" stroke="#22314D"/>
+  <text x="516" y="134" class="t ln">Live data, 2 sources</text>
+  <text x="516" y="160" class="t ln">Score out of 100</text>
+  <text x="516" y="186" class="t ln">Only 70+ qualify</text>
+  <text x="516" y="212" class="t ln">Liquid Nifty 500 names</text>
+  <path d="M706 155 H728" stroke="#8FA3C0" stroke-width="2"/><polygon points="726,148 738,155 726,162" fill="#8FA3C0"/>
+
+  <!-- 4 -->
+  <rect x="740" y="60" width="200" height="190" rx="14" fill="#111B2E" stroke="#FF9933"/>
+  <text x="756" y="92" class="t hd" fill="#FF9933">4 · Allocate</text>
+  <line x1="756" y1="104" x2="924" y2="104" stroke="#22314D"/>
+  <text x="756" y="134" class="t ln">Weight by score</text>
+  <text x="756" y="160" class="t ln">Round down to shares</text>
+  <text x="756" y="186" class="t ln">Leftover → next best</text>
+  <text x="756" y="212" class="t ln">Stop-loss per stock</text>
+  <path d="M946 155 H968" stroke="#8FA3C0" stroke-width="2"/><polygon points="966,148 978,155 966,162" fill="#8FA3C0"/>
+
+  <!-- 5 -->
+  <rect x="980" y="60" width="200" height="190" rx="14" fill="#111B2E" stroke="#A78BFA"/>
+  <text x="996" y="92" class="t hd" fill="#A78BFA">5 · The plan</text>
+  <line x1="996" y1="104" x2="1164" y2="104" stroke="#22314D"/>
+  <text x="996" y="134" class="t ln">Quantity and amount</text>
+  <text x="996" y="160" class="t ln">Unspent cash</text>
+  <text x="996" y="186" class="t ln">Estimated charges</text>
+  <text x="996" y="212" class="t ln">Worst-case loss</text>
+
+  <!-- scale strip -->
+  <text x="20" y="286" class="t" font-size="15" font-weight="700" fill="#8FA3C0">How many stocks? It scales with the amount.</text>
+  <rect x="20" y="298" width="285" height="66" rx="12" fill="#2ECC71" fill-opacity="0.08" stroke="#2ECC71"/>
+  <text x="36" y="326" class="t seg">Under ₹5,000</text><text x="36" y="350" class="t sg2">1 stock (2 at most) or one ETF</text>
+  <rect x="315" y="298" width="285" height="66" rx="12" fill="#2ECC71" fill-opacity="0.14" stroke="#2ECC71"/>
+  <text x="331" y="326" class="t seg">₹5,000 to ₹25,000</text><text x="331" y="350" class="t sg2">2 to 3 stocks</text>
+  <rect x="610" y="298" width="285" height="66" rx="12" fill="#2ECC71" fill-opacity="0.20" stroke="#2ECC71"/>
+  <text x="626" y="326" class="t seg">₹25,000 to ₹1,00,000</text><text x="626" y="350" class="t sg2">3 to 5 stocks</text>
+  <rect x="905" y="298" width="275" height="66" rx="12" fill="#2ECC71" fill-opacity="0.26" stroke="#2ECC71"/>
+  <text x="921" y="326" class="t seg">Above ₹1,00,000</text><text x="921" y="350" class="t sg2">4 to 8 stocks + a core ETF</text>
+
+  <text x="20" y="404" class="t mut">Nothing scores 70, or nothing is affordable? It says so and points to an ETF or index-fund SIP. It never forces a buy.</text>
+  <text x="20" y="428" class="t mut">Delivery only: no margin, F&amp;O or intraday.</text>
+</svg>
